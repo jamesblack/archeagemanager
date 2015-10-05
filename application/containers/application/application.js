@@ -1,4 +1,5 @@
 import React from 'react';
+import { Header } from '../../components';
 
 class Application extends React.Component {
 
@@ -9,7 +10,7 @@ class Application extends React.Component {
   render() {
     return (
       <div>
-        <h1 onClick={this.onClick}>Application Controller</h1>
+        <Header />
         {this.props.children}
       </div>
     );
