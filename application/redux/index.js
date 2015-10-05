@@ -9,9 +9,10 @@ export const archeageApplication = combineReducers({
 
 let store;
 
-if (typeof window !== 'undefined')
+if (typeof window !== 'undefined') {
   store = applyMiddleware(thunk, logger)(createStore)(archeageApplication, window.__INITIAL_STATE__);
-else
+} else {
   store = () => applyMiddleware(thunk, logger)(createStore)(archeageApplication);
+}
 
 export default store;
