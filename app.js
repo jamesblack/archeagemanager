@@ -11,8 +11,9 @@ runBootstrap();
 
 async function runBootstrap() {
   try {
-    // bootstrap.mongo(app);
+    bootstrap.mongo(app);
     bootstrap.server(app);
+    bootstrap.api(app);
     await bootstrap.webpack(app);
     await bootstrap.stormpath(app);
     bootstrap.client(app);

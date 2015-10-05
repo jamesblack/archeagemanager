@@ -13,7 +13,7 @@ export default async function mongo(app, passport) {
   debug('Start Bootstrapping Mongoose');
 
   let connect = () => {
-    mongoose.connect(env('MONGO'), {
+    mongoose.connect(env('MONGOLAB_URI'), {
       server: {
         socketOptions: {
           keepAlive: 1,
