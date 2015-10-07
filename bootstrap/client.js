@@ -21,8 +21,8 @@ export default function client(app) {
 
     match({ routes, location }, (error, redirectLocation, renderProps) => {
       if (redirectLocation) return res.redirect(301, redirectLocation.pathname + redirectLocation.search);
-      if (error) return res.send(500, error.message);
-      if (renderProps === null) return res.send(404, 'Not found');
+      if (error) return res.status(500).send(error.message);
+      if (renderProps === null) return res.sendStatus(404);
       return res.render('../public/index', {
         app: renderToString(
           <Provider store={store}>

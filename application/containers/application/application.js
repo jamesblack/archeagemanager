@@ -11,7 +11,9 @@ class Application extends React.Component {
     return (
       <div>
         <Header />
-        {this.props.children}
+        <div className='container'>
+          {this.props.children}
+        </div>
       </div>
     );
   }

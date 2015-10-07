@@ -2,9 +2,11 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from './middleware/logger';
 import thunk from 'redux-thunk';
 import user from './reducers/user';
+import characters from './reducers/characters';
 
 export const archeageApplication = combineReducers({
   user,
+  characters,
 });
 
 let store;

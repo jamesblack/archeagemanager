@@ -1,8 +1,6 @@
 import express from 'express';
 import env from 'envs';
-import * as bootstrap from './bootstrap';
-
-// import passport from 'passport';
+import bootstrap from './bootstrap';
 
 const app = express();
 const port = env('PORT', 3000);
@@ -11,7 +9,7 @@ runBootstrap();
 
 async function runBootstrap() {
   try {
-    bootstrap.mongo(app);
+    await bootstrap.mongo(app);
     bootstrap.server(app);
     bootstrap.api(app);
     await bootstrap.webpack(app);
