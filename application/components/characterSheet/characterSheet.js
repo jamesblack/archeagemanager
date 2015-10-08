@@ -19,7 +19,7 @@ class CharacterSheet extends React.Component {
                 <div key={index}>
                   <h4>{skillName}</h4>
                   <h5>{skill.value}</h5>
-                  <h6>{Math.floor(skill.value / 1000)}</h6>
+                  <h6>{Math.floor(skill.value / 10000)}</h6>
                 </div>
               );
             })

@@ -16,13 +16,26 @@ class Characters extends React.Component {
   }
 
   render() {
-    console.log(this.props.characters);
+    let characters = { yours: [], list: [] };
+    if (this.props.characters) {
+      characters = this.props.characters.reduce((characters, character) => {
+        if (character.owner === this.props.user.href) {
+          characters.yours.push(character);
+        } else {
+          characters.list.push(character);
+        }
+        return characters;
+      }, characters);
+    }
+
+
+
     return (
       <div>
         <h2>Your Characters</h2>
-        { this.props.characters.yours.length ?
+        { characters.yours.length ?
           <ul>
-            { this.props.characters.yours.map((character, index) =>
+            { characters.yours.map((character, index) =>
               <li key={index}><Link to={`/characters/edit/${character._id}`}>Edit {character.name}</Link></li>
             )}
           </ul>
@@ -39,7 +52,7 @@ class Characters extends React.Component {
               <th>&nbsp;</th>
             </tr>
           </thead>
-          { this.props.characters.list.map((character)=>
+          { characters.list.map((character)=>
             <ExpandableTableRow key={character._id} items={[character.name, character.player, 'Click to expand']} expandableContent={<CharacterSheet character={character} />} />
           )}
         </table>
@@ -51,7 +64,8 @@ class Characters extends React.Component {
 
 export default connect(
   (state) => ({
-    characters: state.characters,
+    characters: state.characters.characters,
+    user: state.user,
   }),
   (dispatch) => ({
     fetchCharacters: () => dispatch(fetchCharacters()),

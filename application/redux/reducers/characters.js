@@ -1,6 +1,5 @@
 export default function(characters = {
-  yours: [],
-  list: [],
+  characters: [],
   error: null,
 }, action) {
   switch (action.type) {
@@ -13,8 +12,7 @@ export default function(characters = {
     case 'CHARACTER_FETCH_SUCCESS': {
       return Object.assign({}, characters, {
         error: null,
-        list: action.characters.list,
-        yours: action.characters.yours,
+        characters: action.characters,
       });
     }
   }

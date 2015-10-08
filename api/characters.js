@@ -7,17 +7,7 @@ const Character = mongoose.model('Character');
 router.get('/characters', async (req, res) => {
 
   try {
-    let allCharacters = await Character.find();
-    let characters = allCharacters.reduce((value, character) => {
-
-      if (character.owner === req.user.href) {
-        value.yours.push(character);
-      } else {
-        value.list.push(character);
-      }
-
-      return value;
-    }, { list: [], yours: [] });
+    let characters = await Character.find();
 
     return res.send(characters);
   } catch (e) {

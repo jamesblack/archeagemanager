@@ -98,7 +98,7 @@ class CharacterEditor extends React.Component {
   }
 
   render() {
-    let drawProfessionFields = (skillType) => (professionKey) => {
+    let drawProfessionFields = (skillType) => (professionKey, index) => {
       let value = this.state.character.professions[skillType][professionKey] && this.state.character.professions[skillType][professionKey].value || '';
       let preferred = this.state.character.professions[skillType][professionKey] && this.state.character.professions[skillType][professionKey].preferred || false;
       return (
@@ -110,6 +110,7 @@ class CharacterEditor extends React.Component {
             id={`${skillType}.${professionKey}`}
             placeholder='Level'
             value={value}
+            tabIndex={index + 1}
             onChange={this.onChangeField.bind(this, `professions.${skillType}.${professionKey}.value`)} />
           <input
             type='checkbox'

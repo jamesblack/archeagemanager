@@ -8,6 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import archeageStore from './redux';
 require('./TEMP_CSS/header.styl');
+require('./TEMP_CSS/main.styl');
 
 const routing = (
   <Provider store={archeageStore}>
