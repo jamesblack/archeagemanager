@@ -10,15 +10,14 @@ runBootstrap();
 async function runBootstrap() {
   try {
     await bootstrap.mongo(app);
-    bootstrap.server(app);
-    bootstrap.api(app);
-    await bootstrap.webpack(app);
+    await bootstrap.server(app);
     await bootstrap.stormpath(app);
-    bootstrap.client(app);
+    await bootstrap.api(app);
+    await bootstrap.webpack(app);
+    await bootstrap.client(app);
   } catch (exception) {
-    console.error(exception);
+    console.error('Error:', exception);
   }
-
   app.listen(port, () => {
     console.log(`Listening for connections on port ${port}`);
   });

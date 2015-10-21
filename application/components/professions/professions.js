@@ -15,41 +15,32 @@ class Professions extends React.Component {
   }
 
   render() {
-    console.log(this.props.characters)
+    console.log(this.props.professions);
+
+    let generateProfessionList = (professionType) => PROFESSIONS[professionType].map((skillName, index) => (
+      <div className='text-center' style={{ width: 150 }}>
+        <section className='well well-sm' key={index}>
+          <h4 className='lead'>{skillName}</h4>
+          <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+            {(() => {
+              if (!this.props.professions[professionType][skillName]) return <li className='collecting'>Collecting Data</li>;
+              return this.props.professions[professionType][skillName].slice(0, 5).map((info) =>
+                <li className={classNames({ 'bg-success': info.preferred })} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>{info.name}</span>
+                  <span>{info.skill}</span>
+                </li>
+              );
+            })()}
+          </ul>
+        </section>
+      </div>
+    ));
+
     return (
-      <div className='professionSheet'>
-        <table className='table table-hover'>
-          <thead>
-            <tr>
-              <th className='rotate'>&nbsp;</th>
-              <th className='rotate'>&nbsp;</th>
-              { PROFESSIONS.harvesting.map((name) => <th className='rotate'><div><span>{name}</span></div></th>)}
-              <th className='rotate'>&nbsp;</th>
-              { PROFESSIONS.refining.map((name) => <th className='rotate'><div><span>{name}</span></div></th>)}
-              <th className='rotate'>&nbsp;</th>
-              { PROFESSIONS.misc.map((name) => <th className='rotate'><div><span>{name}</span></div></th>)}
-            </tr>
-          </thead>
-          <tbody>
-            { this.props.characters && this.props.characters.map((character) =>
-              <tr>
-                <td>{character.name}</td>
-                <td>&nbsp;</td>
-                { PROFESSIONS.harvesting.map((skillName) =>
-                  <td className={classNames({ preferred: character.professions.harvesting[skillName].preferred })}>{character.professions.harvesting[skillName].value}</td>
-                )}
-                <td>&nbsp;</td>
-                { PROFESSIONS.refining.map((skillName) =>
-                  <td className={classNames({ preferred: character.professions.refining[skillName].preferred })}>{character.professions.refining[skillName].value}</td>
-                )}
-                <td>&nbsp;</td>
-                { PROFESSIONS.misc.map((skillName) =>
-                  <td className={classNames({ preferred: character.professions.misc[skillName].preferred })}>{character.professions.misc[skillName].value}</td>
-                )}
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <div className='col-xs-12' style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
+        { generateProfessionList('harvesting') }
+        { generateProfessionList('refining') }
+        { generateProfessionList('misc') }
       </div>
     );
   }
@@ -59,6 +50,7 @@ class Professions extends React.Component {
 export default connect(
   (state) => ({
     characters: state.characters.characters,
+    professions: state.professions,
   }),
   (dispatch) => ({
     fetchCharacters: () => dispatch(fetchCharacters()),

@@ -26,7 +26,7 @@ class ExpandableTableRow extends React.Component {
         </tr>
         { this.state.expanded ?
           <tr>
-            <td colSpan={this.props.items.length}>
+            <td style={{ background: '#FFF !important' }} colSpan={this.props.items.length}>
               {this.props.expandableContent}
             </td>
           </tr>

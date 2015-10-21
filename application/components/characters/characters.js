@@ -28,34 +28,40 @@ class Characters extends React.Component {
       }, characters);
     }
 
-
-
-    return (
-      <div>
-        <h2>Your Characters</h2>
-        { characters.yours.length ?
-          <ul>
-            { characters.yours.map((character, index) =>
-              <li key={index}><Link to={`/characters/edit/${character._id}`}>Edit {character.name}</Link></li>
-            )}
-          </ul>
-          :
-          null
-        }
-        <Link to='/characters/edit'>Add a Character</Link>
-        <h2>Character List</h2>
+    let generateCharacterTable = (characters, editable = false) => {
+      return (
         <table className='table table-hover'>
           <thead>
             <tr>
               <th>Character Name</th>
-              <th>Player Name</th>
               <th>&nbsp;</th>
+              {(() => {
+                if (editable) return <th>&nbsp;</th>;
+              })()}
             </tr>
           </thead>
-          { characters.list.map((character)=>
-            <ExpandableTableRow key={character._id} items={[character.name, character.player, 'Click to expand']} expandableContent={<CharacterSheet character={character} />} />
+          {characters.map((character) =>
+            <ExpandableTableRow
+              key={character._id}
+              items={(() => {
+                let items = [character.name, 'Click to expand'];
+                if (editable) items.push(<Link to={`/characters/edit/${character._id}`}>Edit {character.name}</Link>);
+                return items;
+              })()}
+              expandableContent={<CharacterSheet character={character} />} />
           )}
         </table>
+      );
+    };
+
+
+
+    return (
+      <div>
+        <h2 className='lead'>Your Characters <small><Link to='/characters/edit'>Add a Character</Link></small></h2>
+        { generateCharacterTable(characters.yours, true) }
+        <h2 className='lead'>Character List</h2>
+        { generateCharacterTable(characters.list) }
       </div>
     );
   }

@@ -3,10 +3,12 @@ import logger from './middleware/logger';
 import thunk from 'redux-thunk';
 import user from './reducers/user';
 import characters from './reducers/characters';
+import professions from './reducers/professions';
 
 export const archeageApplication = combineReducers({
   user,
   characters,
+  professions,
 });
 
 let store;
